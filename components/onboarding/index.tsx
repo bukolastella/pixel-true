@@ -1,10 +1,20 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 import React, { useState } from "react";
-import { Colors } from "@/constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemedView } from "../ThemedView";
+import { ThemedText } from "../ThemedText";
+import { OnboardingData } from "./data";
 
 const Onboarding = () => {
+  const theme = useColorScheme() ?? "light";
   const [step, setStep] = useState(0);
 
   const onNextStep = () => {
@@ -18,17 +28,19 @@ const Onboarding = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.wrapper}>
+      <ThemedView style={styles.wrapper}>
         <Image
           style={[styles.image]}
-          source={require("../../assets/images/onboard-image-1.png")}
+          source={OnboardingData[step][theme === "light" ? "img" : "darkImg"]}
           resizeMode="contain"
         />
         <View style={[styles.miniWrapper]}>
-          <Text style={styles.title}>Find your Comfort Food here</Text>
-          <Text style={styles.subText}>
-            Here You Can find a chef or dish for every taste and color. Enjoy!
-          </Text>
+          <ThemedText type="bold" style={styles.title}>
+            {OnboardingData[step].title}
+          </ThemedText>
+          <ThemedText type="book" style={styles.subText}>
+            {OnboardingData[step].subText}
+          </ThemedText>
           <LinearGradient
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
@@ -40,7 +52,7 @@ const Onboarding = () => {
             </Pressable>
           </LinearGradient>
         </View>
-      </View>
+      </ThemedView>
     </SafeAreaView>
   );
 };
@@ -65,20 +77,20 @@ const styles = StyleSheet.create({
     // backgroundColor: "brown",
   },
   title: {
-    color: Colors.light.Black09,
+    // color: Colors.light.Black09,
     fontSize: 22,
     textAlign: "center",
-    fontFamily: "BentonSansBold",
-    lineHeight: 35,
+    // fontFamily: "BentonSansBold",
+    // lineHeight: 35,
   },
   subText: {
-    color: Colors.light.Black,
+    // color: Colors.light.Black,
     fontSize: 12,
     marginTop: 20,
     marginBottom: 40,
-    fontFamily: "BentonSansBook",
+    // fontFamily: "BentonSansBook",
     textAlign: "center",
-    lineHeight: 20,
+    // lineHeight: 20,
   },
   buttonWrapper: {
     width: 157,
