@@ -1,17 +1,11 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from "react-native";
+import { Image, StyleSheet, useColorScheme, View } from "react-native";
 import React, { useState } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
 import { OnboardingData } from "./data";
+import { router } from "expo-router";
+import GreenCustomBtn from "../ui/GreenCustomBtn";
 
 const Onboarding = () => {
   const theme = useColorScheme() ?? "light";
@@ -20,6 +14,7 @@ const Onboarding = () => {
   const onNextStep = () => {
     if (step === 1) {
       // move to auth route
+      router.push("/auth/signin");
       return;
     }
 
@@ -41,16 +36,12 @@ const Onboarding = () => {
           <ThemedText type="book" style={styles.subText}>
             {OnboardingData[step].subText}
           </ThemedText>
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={["#53E88B", "#15BE77"]}
+
+          <GreenCustomBtn
+            text="Next"
+            onPress={onNextStep}
             style={styles.buttonWrapper}
-          >
-            <Pressable onPress={onNextStep}>
-              <Text style={styles.buttonText}>Next</Text>
-            </Pressable>
-          </LinearGradient>
+          />
         </View>
       </ThemedView>
     </SafeAreaView>
@@ -64,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    gap: 20,
     // backgroundColor: "yellow",
   },
   image: {
@@ -72,7 +64,7 @@ const styles = StyleSheet.create({
   },
   miniWrapper: {
     alignItems: "center",
-    width: "50%",
+    width: "70%",
     flex: 0.4,
     // backgroundColor: "brown",
   },
@@ -93,15 +85,7 @@ const styles = StyleSheet.create({
     // lineHeight: 20,
   },
   buttonWrapper: {
-    width: 157,
-    height: 57,
     paddingVertical: 18,
     paddingHorizontal: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 15,
-  },
-  buttonText: {
-    color: "white",
   },
 });

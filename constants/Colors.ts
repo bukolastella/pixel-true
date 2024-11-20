@@ -17,6 +17,7 @@ export const Colors = {
     Black: "#000000",
     Black09: "#09051C",
     background: "#FFFFFF",
+    inputBg: "#FFFFFF",
   },
   dark: {
     text: "#ECEDEE",
@@ -28,5 +29,6 @@ export const Colors = {
     Black: "#FFFFFF",
     Black09: "#FFFFFF",
     background: "#0D0D0D",
+    inputBg: "#FFFFFF1A",
   },
 };
