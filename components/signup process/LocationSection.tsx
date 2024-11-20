@@ -37,7 +37,6 @@ export default LocationSection;
 const styles = StyleSheet.create({
   btn: {
     minHeight: 57,
-    // backgroundColor: "#F6F6F6",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,

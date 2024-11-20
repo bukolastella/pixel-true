@@ -22,8 +22,9 @@ const PaymentSection: FC<Props> = ({ onNext }) => {
         theme === "light"
           ? require("../../assets/images/payoneer.png")
           : require("../../assets/images/payoneer-dark.png"),
-      ].map((ev) => (
+      ].map((ev, index) => (
         <View
+          key={index}
           style={[styles.boxxer, { backgroundColor: Colors[theme].inputBg }]}
         >
           <Image source={ev} />

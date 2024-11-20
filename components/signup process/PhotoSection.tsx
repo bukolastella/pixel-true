@@ -1,8 +1,16 @@
-import { Image, StyleSheet, useColorScheme, View } from "react-native";
-import React, { FC } from "react";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from "react-native";
+import React, { FC, useState } from "react";
 import { ThemedText } from "../ThemedText";
 import GreenCustomBtn from "../ui/GreenCustomBtn";
 import { Colors } from "@/constants/Colors";
+import CameraBox from "./CameraBox";
+import * as ImagePicker from "expo-image-picker";
 
 interface Props {
   onNext: () => void;
@@ -10,28 +18,77 @@ interface Props {
 
 const PhotoSection: FC<Props> = ({ onNext }) => {
   const theme = useColorScheme() ?? "light";
+  const [openCamera, setOpenCamera] = useState(false);
+  const [pictureTaken, setPictureTaken] = useState<string>();
 
-  return (
+  const onOpenCamera = () => {
+    setOpenCamera(true);
+  };
+
+  const onCloseCamera = () => {
+    setOpenCamera(false);
+  };
+
+  const onPictureTaken = (params: string) => {
+    setPictureTaken(params);
+  };
+
+  const onClearPictureTaken = () => {
+    setPictureTaken(undefined);
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setPictureTaken(result.assets[0].uri);
+    }
+  };
+
+  return openCamera ? (
+    <CameraBox onCloseCamera={onCloseCamera} onPictureTaken={onPictureTaken} />
+  ) : (
     <>
-      {[
-        {
-          imgSource: require("../../assets/images/gallery.png"),
-          title: "From Gallery",
-        },
-        {
-          imgSource: require("../../assets/images/camera.png"),
-          title: "Take Photo",
-        },
-      ].map((ev) => (
-        <View
-          style={[styles.boxxer, { backgroundColor: Colors[theme].inputBg }]}
-        >
-          <Image source={ev.imgSource} style={styles.img} />
-          <ThemedText type="bold" style={styles.title}>
-            {ev.title}
-          </ThemedText>
+      {pictureTaken ? (
+        <View style={{ gap: 20 }}>
+          <Image source={{ uri: pictureTaken }} style={styles.imagePreview} />
+          <Pressable
+            onPress={onClearPictureTaken}
+            style={[styles.btn, { backgroundColor: Colors[theme].inputBg }]}
+          >
+            <ThemedText type="book">Cancel</ThemedText>
+          </Pressable>
         </View>
-      ))}
+      ) : (
+        [
+          {
+            imgSource: require("../../assets/images/gallery.png"),
+            title: "From Gallery",
+            onClick: pickImage,
+          },
+          {
+            imgSource: require("../../assets/images/camera.png"),
+            title: "Take Photo",
+            onClick: onOpenCamera,
+          },
+        ].map((ev, index) => (
+          <Pressable
+            key={index}
+            style={[styles.boxxer, { backgroundColor: Colors[theme].inputBg }]}
+            onPress={ev.onClick}
+          >
+            <Image source={ev.imgSource} style={styles.img} />
+            <ThemedText type="bold" style={styles.title}>
+              {ev.title}
+            </ThemedText>
+          </Pressable>
+        ))
+      )}
 
       <View
         style={{
@@ -62,5 +119,19 @@ const styles = StyleSheet.create({
   img: {
     width: 50,
     height: 50,
+  },
+  imagePreview: {
+    width: 245,
+    height: 238,
+    borderRadius: 22,
+    margin: "auto",
+  },
+  btn: {
+    minHeight: 57,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    width: 300,
+    marginHorizontal: "auto",
   },
 });
