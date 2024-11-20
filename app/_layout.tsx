@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -25,10 +26,23 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    const checkOnboarding = async () => {
+      try {
+        const value = await AsyncStorage.getItem("viewedOnboarding");
+        if (value !== null) {
+          SplashScreen.hideAsync();
+          router.push("/auth/signin");
+        } else {
+          SplashScreen.hideAsync();
+          router.push("/onboarding");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     if (loaded) {
-      SplashScreen.hideAsync();
-      router.push("/onboarding");
-      return;
+      checkOnboarding();
     }
   }, [loaded]);
 

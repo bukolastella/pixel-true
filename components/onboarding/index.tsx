@@ -6,14 +6,15 @@ import { ThemedText } from "../ThemedText";
 import { OnboardingData } from "./data";
 import { router } from "expo-router";
 import GreenCustomBtn from "../ui/GreenCustomBtn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Onboarding = () => {
   const theme = useColorScheme() ?? "light";
   const [step, setStep] = useState(0);
 
-  const onNextStep = () => {
+  const onNextStep = async () => {
     if (step === 1) {
-      // move to auth route
+      await AsyncStorage.setItem("viewedOnboarding", "true");
       router.push("/auth/signin");
       return;
     }
