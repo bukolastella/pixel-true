@@ -1,23 +1,32 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { ThemedText } from "../ThemedText";
-import GreenCustomBtn from "../ui/GreenCustomBtn";
-import InputField from "../formik fields/InputField";
 import { Formik } from "formik";
-import AuthButton from "../ui/AuthButton";
+import InputField from "../formik fields/InputField";
+import GreenCustomBtn from "../ui/GreenCustomBtn";
 import { router } from "expo-router";
+import CheckTextBox from "./CheckTextBox";
 
-const Signin = () => {
+const Signup = () => {
+  const [checked, setChecked] = useState(false);
+  const [emailChecked, setEmailChecked] = useState(false);
+
   const onSwitch = () => {
-    router.push("/auth/signup");
+    router.push("/auth/signin");
   };
+
+  const onEmailChecked = () => {
+    setEmailChecked((prev) => !prev);
+  };
+
   return (
     <>
       <ThemedText type="bold" style={styles.title}>
-        Login To Your Account
+        Sign Up For Free
       </ThemedText>
       <Formik
         initialValues={{
+          name: "",
           email: "",
           password: "",
         }}
@@ -29,6 +38,13 @@ const Signin = () => {
         {({ handleSubmit }) => (
           <>
             <View style={styles.inputWrapper}>
+              <InputField
+                name="name"
+                placeholder="Name"
+                inputProps={{
+                  placeholder: "John",
+                }}
+              />
               <InputField
                 name="email"
                 placeholder="Email"
@@ -53,25 +69,22 @@ const Signin = () => {
               />
             </View>
             {/*  */}
-            <ThemedText type="bold" style={styles.orText}>
-              Or Continue With
-            </ThemedText>
-            <View style={styles.authBtnWrapper}>
-              <AuthButton
-                text="Facebook"
-                imgSource={require("../../assets/images/facebook.png")}
+            <View style={styles.checkWrapper}>
+              <CheckTextBox
+                text={"Keep Me Signed In"}
+                onChange={() => setChecked(!checked)}
+                checked={checked}
               />
-              <AuthButton
-                text="Google"
-                imgSource={require("../../assets/images/google.png")}
+              <CheckTextBox
+                text={"Email Me About Special Pricing"}
+                onChange={onEmailChecked}
+                checked={emailChecked}
               />
             </View>
 
-            <Text style={styles.forgotText}>Forgot Your Password?</Text>
-
-            <GreenCustomBtn text="Login" onPress={handleSubmit} />
+            <GreenCustomBtn text="Create Account" onPress={handleSubmit} />
             <Pressable onPress={onSwitch}>
-              <Text style={styles.switch}>Create an account?</Text>
+              <Text style={styles.switch}>Already have an account?</Text>
             </Pressable>
           </>
         )}
@@ -80,7 +93,7 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
 
 const styles = StyleSheet.create({
   title: {
@@ -97,18 +110,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 16,
   },
-  forgotText: {
-    fontSize: 12,
-    fontFamily: "BentonSansRegular",
-    marginTop: 20,
-    marginBottom: 36,
-    color: "#53E88B",
-  },
-  LoginWrapper: {},
   switch: {
     fontSize: 12,
     fontFamily: "BentonSansRegular",
     marginTop: 20,
     color: "#53E88B",
+  },
+  loginWrapper: {},
+  checkWrapper: {
+    gap: 13,
+    marginRight: "auto",
+    marginVertical: 25,
   },
 });
