@@ -6,6 +6,7 @@ import InputField from "../formik fields/InputField";
 import GreenCustomBtn from "../ui/GreenCustomBtn";
 import { router } from "expo-router";
 import CheckTextBox from "./CheckTextBox";
+import { Colors } from "@/constants/Colors";
 
 const Signup = () => {
   const [checked, setChecked] = useState(false);
@@ -32,7 +33,7 @@ const Signup = () => {
         }}
         // validationSchema={LoginValidation}
         onSubmit={() => {
-          // router.push("/(main)/(tabs)");
+          router.push("/signup-process");
         }}
       >
         {({ handleSubmit }) => (
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "BentonSansRegular",
     marginTop: 20,
-    color: "#53E88B",
+    color: Colors.green53,
   },
   loginWrapper: {},
   checkWrapper: {

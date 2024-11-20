@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { FC } from "react";
@@ -14,7 +15,10 @@ const CheckBox: FC<Props> = ({ checked, onChange }) => {
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        colors={[checked ? "#53E88B" : "white", checked ? "#15BE77" : "white"]}
+        colors={[
+          checked ? Colors.green53 : "white",
+          checked ? "#15BE77" : "white",
+        ]}
         style={[styles.checkboxBase]}
       >
         {checked && <FontAwesome name="check" size={12} color="white" />}

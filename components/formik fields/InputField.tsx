@@ -43,7 +43,7 @@ const InputField: FC<Props> = ({
         style={[styles.wrapper, { backgroundColor: Colors[theme].inputBg }]}
       >
         {leftIconName && (
-          <AntDesign name={leftIconName} size={24} color={"#53E88B"} />
+          <AntDesign name={leftIconName} size={24} color={Colors.green53} />
         )}
         <TextInput
           value={field.value}
@@ -62,7 +62,7 @@ const InputField: FC<Props> = ({
             // style={styles.IconWrapper}
             onPress={isPassword ? handleClick : () => {}}
           >
-            <AntDesign name={rightIconName} size={24} color={"#53E88B"} />
+            <AntDesign name={rightIconName} size={24} color={Colors.green53} />
           </Pressable>
         )}
       </View>
