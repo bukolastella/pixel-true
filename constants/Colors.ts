@@ -20,7 +20,7 @@ export const Colors = {
     background: "#FFFFFF",
     inputBg: "#FFFFFF",
     dark25: "#FFFFFF",
-    orangeF9: "#F9A84D",
+    orangeF9: "#F9A84D1A",
     orangeDA: "#DA6317",
   },
   dark: {

@@ -30,6 +30,7 @@ const SearchField = () => {
         onChangeText={setValue}
         placeholder="What do you want to order?"
         placeholderTextColor={Colors[theme].orangeDA}
+        style={{ height: "100%" }}
       />
     </View>
   );

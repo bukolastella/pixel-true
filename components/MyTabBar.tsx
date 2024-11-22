@@ -71,6 +71,7 @@ const MyTabBar: FC<BottomTabBarProps> = ({
             onLongPress={onLongPress}
             style={[
               styles.itemWrapper,
+              options.tabBarItemStyle,
               {
                 backgroundColor: isFocused ? "#53e88c63" : "transparent",
                 paddingVertical: isFocused ? 10 : 0,
@@ -101,10 +102,13 @@ export default MyTabBar;
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: "absolute",
-    bottom: 10,
-    left: 10,
-    right: 10,
+    // position: "absolute",
+    // bottom: 10,
+    // left: 10,
+    // right: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginVertical: 10,
     flexDirection: "row",
     marginHorizontal: "auto",
     borderRadius: 22,
