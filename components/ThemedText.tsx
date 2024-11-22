@@ -36,12 +36,12 @@ export function ThemedText({
 const styles = StyleSheet.create({
   Book: {
     fontSize: 12,
-    lineHeight: 24,
+    // lineHeight: 24,
     fontFamily: "BentonSansBook",
   },
   Bold: {
     fontSize: 20,
-    lineHeight: 24,
+    // lineHeight: 24,
     fontFamily: "BentonSansBold",
   },
 });

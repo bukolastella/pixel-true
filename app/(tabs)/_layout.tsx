@@ -1,43 +1,75 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import React from "react";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import MyTabBar from "@/components/MyTabBar";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AuthWrapper from "@/components/auth/AuthWrapper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <Tabs
+      tabBar={(props) => <MyTabBar {...props} />}
+      screenLayout={({ children }) => (
+        <SafeAreaView style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
+            {children}
+          </ScrollView>
+        </SafeAreaView>
+      )}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        // tabBarButton: HapticTab,
+        // tabBarBackground: TabBarBackground,
+        // tabBarStyle: Platform.select({
+        //   ios: {
+        //     // Use a transparent background on iOS to show the blur effect
+        //     position: "absolute",
+        //   },
+        //   default: {},
+        // }),
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Entypo size={size} name="home" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="profile"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome size={size} name="user" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: "Explore",
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="shopping-cart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: "Explore",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbox-ellipses" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>

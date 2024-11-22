@@ -24,7 +24,7 @@ const Signin = () => {
         }}
         // validationSchema={LoginValidation}
         onSubmit={() => {
-          // router.push("/(main)/(tabs)");
+          router.push("/(tabs)");
         }}
       >
         {({ handleSubmit }) => (
