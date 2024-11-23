@@ -1,18 +1,27 @@
 import {
   View,
-  Text,
   TouchableOpacity,
   useColorScheme,
   StyleSheet,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import SearchField from "./SearchField";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
+import FilterModal from "./FilterModal";
 
 const HomeHeader = () => {
   const theme = useColorScheme() ?? "light";
+  const [open, setOpen] = useState(false);
+
+  const onOpen = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -39,10 +48,13 @@ const HomeHeader = () => {
             styles.filterWrapper,
             { backgroundColor: Colors[theme].orangeF9 },
           ]}
+          onPress={onOpen}
         >
           <Ionicons name="filter" size={24} color={Colors[theme].orangeDA} />
         </TouchableOpacity>
       </View>
+
+      <FilterModal open={open} onClose={onClose} />
     </>
   );
 };

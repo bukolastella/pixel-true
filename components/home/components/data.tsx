@@ -36,6 +36,11 @@ export interface MenuListProps {
   foodCategory: FoodCategory;
 }
 
+export enum TypeCategory {
+  Restaurant = "Restaurant",
+  Menu = "Menu",
+}
+
 export enum FoodCategory {
   mainCourse = "Main Course",
   Appetizer = "Appetizer",
