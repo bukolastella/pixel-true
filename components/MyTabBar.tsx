@@ -75,8 +75,8 @@ const MyTabBar: FC<BottomTabBarProps> = ({
               {
                 backgroundColor: isFocused ? "#53e88c63" : "transparent",
                 paddingVertical: isFocused ? 10 : 0,
-                borderRadius: isFocused ? 12 : 0,
                 paddingHorizontal: isFocused ? 17 : 0,
+                borderRadius: isFocused ? 12 : 0,
               },
             ]}
           >
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   itemWrapper: {
     flex: 1,
     flexDirection: "row",
-    gap: 12,
+    gap: 8,
     alignItems: "center",
     justifyContent: "center",
   },

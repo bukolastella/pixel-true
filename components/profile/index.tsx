@@ -10,7 +10,7 @@ const Profile = () => {
     <ParallaxScrollView
       headerImage={
         <Image
-          source={require("../../assets/images/banner.png")}
+          source={require("../../assets/images/profile.png")}
           style={{ height: 320 }}
         />
       }
